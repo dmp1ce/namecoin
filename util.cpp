@@ -650,7 +650,7 @@ string GetDefaultDataDir()
 {
     // Windows: C:\Documents and Settings\username\Application Data\Bitcoin
     // Mac: ~/Library/Application Support/Bitcoin
-    // Unix: ~/.bitcoin
+    // Unix: ~/.namecoin
 #ifdef __WXMSW__
     // Windows
     return MyGetSpecialFolderPath(CSIDL_APPDATA, true) + "\\Bitcoin";
@@ -668,7 +668,7 @@ string GetDefaultDataDir()
     return strHome + "Bitcoin";
 #else
     // Unix
-    return strHome + ".bitcoin";
+    return strHome + ".namecoin";
 #endif
 #endif
 }

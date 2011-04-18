@@ -64,7 +64,7 @@ bitcoin: $(OBJS) obj/ui.o obj/uibase.o obj/sha256.o
 obj/nogui/%.o: %.cpp $(HEADERS)
 	$(CXX) -c $(CXXFLAGS) -o $@ $<
 
-bitcoind: $(OBJS:obj/%=obj/nogui/%) obj/sha256.o
+namecoind: $(OBJS:obj/%=obj/nogui/%) obj/sha256.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
 
 
@@ -74,4 +74,4 @@ clean:
 	-rm -f cryptopp/obj/*.o
 	-rm -f headers.h.gch
 	-rm -f bitcoin
-	-rm -f bitcoind
+	-rm -f namecoind
