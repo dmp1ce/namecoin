@@ -78,7 +78,8 @@ int main(int argc, char* argv[])
     fRet = AppInit(argc, argv);
 
     if (fRet && fDaemon)
-        pthread_exit((void*)0);
+        return 0;
+    return 1;
 }
 #endif
 
@@ -226,6 +227,7 @@ bool AppInit2(int argc, char* argv[])
         exit(ret);
     }
 
+#ifndef __WXMSW__
 #ifndef GUI
     if (fDaemon)
     {
@@ -243,6 +245,7 @@ bool AppInit2(int argc, char* argv[])
         if (sid < 0)
             fprintf(stderr, "Error: setsid() returned %d errno %d\n", sid, errno);
     }
+#endif
 #endif
 
     if (!fDebug && !pszSetDataDir[0])

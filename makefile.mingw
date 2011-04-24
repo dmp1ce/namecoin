@@ -32,7 +32,8 @@ DEFS=-DWIN32 -D__WXMSW__ -D_WINDOWS -DNOPCH
 DEBUGFLAGS=-g -D__WXDEBUG__
 CFLAGS=-mthreads -O2 -w -Wno-invalid-offsetof -Wformat $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 HEADERS=headers.h strlcpy.h serialize.h uint256.h util.h key.h bignum.h base58.h \
-    script.h db.h net.h irc.h main.h rpc.h uibase.h ui.h noui.h init.h
+    script.h db.h net.h irc.h main.h rpc.h uibase.h ui.h noui.h init.h \
+    hook.h
 
 OBJS= \
     obj/util.o \
@@ -47,7 +48,7 @@ OBJS= \
     cryptopp/obj/cpu.o
 
 
-all: bitcoin.exe
+all: namecoind.exe
 
 
 obj/%.o: %.cpp $(HEADERS)
@@ -66,7 +67,8 @@ bitcoin.exe: $(OBJS) obj/ui.o obj/uibase.o obj/ui_res.o
 obj/nogui/%.o: %.cpp $(HEADERS)
 	g++ -c $(CFLAGS) -o $@ $<
 
-bitcoind.exe: $(OBJS:obj/%=obj/nogui/%) obj/ui_res.o
+obj/nogui/namecoin.o: namecoin.h
+namecoind.exe: $(OBJS:obj/%=obj/nogui/%) obj/ui_res.o obj/nogui/namecoin.o
 	g++ $(CFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 
